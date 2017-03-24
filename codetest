@@ -1,0 +1,51 @@
+// This #include statement was automatically added by the Particle IDE.
+#include <SparkIntervalTimer.h>
+int LED = D0;
+int LEDout = D1;
+int val = 0;
+int val2 = 0;
+int timr = 0;
+
+String s ="";
+char resultstr[64];
+
+
+void setup() {
+pinMode(LED, OUTPUT);
+pinMode(LEDout, INPUT_PULLDOWN);
+pinMode(D2, OUTPUT);
+pinMode(A0, INPUT);
+Particle.variable("result", resultstr, STRING);
+Particle.variable("val2", val2);
+}
+
+
+
+void loop() {
+digitalWrite(LED, HIGH);
+val = digitalRead(LEDout);
+digitalWrite(D2, val);
+val = analogRead(A0);
+val2 = digitalRead(D1);
+//s = s + "\n" + analogRead(A0);
+
+//s.toCharArray(resultstr, 32767);
+//Serial.println(val);
+//Particle.variable("val", val);
+
+sprintf(resultstr, "{\"val\":%d}", val);
+// if(val2==HIGH){
+//    Particle.publish("redoff");
+// }
+//    if(val==HIGH){
+//        timr = 0;
+//    }
+//    if (val==LOW) {
+//        timr++;
+//        if(timr>=5000){
+//                    Particle.publish("redoff");
+ //                   timr = 0;
+//        }
+ //   }
+}
+//D0 is output high, so turns on green. the value of D0 is fed into D1 which is an input pin. Then, D2 is output pin at the value of the input to D1
